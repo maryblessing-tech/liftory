@@ -12,14 +12,24 @@ export default function Login() {
     if (localStorage.getItem('liftory_token')) navigate('/dashboard')
   }, [navigate])
 
-  function handleChange(e) {
-    setForm({ ...form, [e.target.name]: e.target.value })
-  }
-
   function handleSubmit(e) {
     e.preventDefault()
     setError(''); setSuccess('')
+
     const storedUser = JSON.parse(localStorage.getItem('liftory_user') || '{}')
+
+    // Allow demo login if no account exists
+    if (form.username === 'demo' && form.password === 'demo123') {
+      localStorage.setItem('liftory_token', 'token-' + Date.now())
+      localStorage.setItem('liftory_user', JSON.stringify({
+        username: 'demo', password: 'demo123',
+        email: 'demo@liftory.com', firstName: 'Demo', lastName: 'User'
+      }))
+      setSuccess('✅ Login successful! Redirecting...')
+      setTimeout(() => navigate('/dashboard'), 1200)
+      return
+    }
+
     if (storedUser.username === form.username.trim() && storedUser.password === form.password) {
       localStorage.setItem('liftory_token', 'token-' + Date.now())
       setSuccess('✅ Login successful! Redirecting...')
