@@ -28,7 +28,7 @@ export default function Signup() {
     }))
 
     setSuccess('✅ Account created successfully! Redirecting to login...')
-    setTimeout(() => navigate('/login'), 1800)
+    setTimeout(() => { window.location.href = '/login' }, 1800)
   }
 
   const inputStyle = {
