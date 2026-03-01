@@ -26,7 +26,7 @@ export default function Login() {
         email: 'demo@liftory.com', firstName: 'Demo', lastName: 'User'
       }))
       setSuccess('✅ Login successful! Redirecting...')
-      setTimeout(() => { window.location.href = '/dashboard' }, 1200)
+      setTimeout(() => navigate('/dashboard'), 1200)
       return
     }
 
